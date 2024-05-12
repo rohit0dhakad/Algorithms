@@ -1,73 +1,86 @@
 #include <iostream>
-#include <cmath>
 using namespace std;
 
-void count_sort(int array[], int divisor, int Size)
+void Redix(int array[], int digit, int size)
 {
-    int output[Size];
-    int arr[10] = {0};
-    for (int l = 0; l < Size; l++)
+    int new_Array[10] = {0};
+    int divisor = pow(10,digit);
+    for (int j = 0; j < size; j++)
     {
-        arr[(array[l] / divisor) % 10]++;
+        // int x = array[j] / pow(10, digit);
+        // int y = x % 10;
+        // cout << y << " ";
+        new_Array[(array[j]/ divisor) % 10]++;
+        // cout<<new_Array[j];
     }
-    for (int i = 1; i < 10; i++)
+    // cout << endl;
+    for(int l=1;l<10;l++){
+        new_Array[l]+=new_Array[l-1];
+        // cout<<new_Array[l];
+    }
+    // cout << "Array  : ";
+    // for (int j = 0; j < 10; j++)
+    // {
+    //     cout << new_Array[j] << " ";
+    // }
+    // cout<<endl;
+    int sorted[size];
+    for(int i=size-1;i>=0;i--){
+        int index=new_Array[(array[i]/divisor)%10]-1;
+        sorted[index]=array[i];
+        new_Array[(array[i]/divisor)%10]--;
+    }
+    // cout << "Array  : ";
+    for (int j = 0; j < size; j++)
     {
-        arr[i] += arr[i - 1];
+        array[j]=sorted[j];
     }
-    for (int k = Size - 1; k >= 0; k--)
-    {
-        output[arr[(array[k] / divisor) % 10] - 1] = array[k];
-        arr[(array[k] / divisor) % 10]--;
-    }
-    for (int j = 0; j < Size; j++)
-        array[j] = output[j];
+    cout<<endl;
 }
-void redix_sort(int array[], int Max, int Size)
-{
-    int count = 1;
-    int divisor;
-    while (Max > 10)
-    {
-        Max = Max / 10;
-        count++;
-    }
-    cout<<"Count is: "<<count<<endl;
-    for (int i = 0; i <count; i++)
-    {
-        divisor = pow(10, i);
-        count_sort(array, divisor, Size);
-    }
-    
-}
+
 int main()
 {
-    int Size;
-    cout << "\nEnter Number of Element(Size)in Array : ";
-    cin >> Size;
-    int array[Size];
-    cout << endl;
-    for (int k = 0; k < Size; k++)
+    int n;
+    cout << "Number of Elements in arrey : ";
+    cin >> n;
+    int array[n];
+    int values;
+    for (int i = 0; i < n; i++)
     {
-        int value;
-        cout << "Enter Array's " << k + 1 << " Element : ";
-        cin >> value;
-        array[k] = value;
-    }
-    int Max = array[0];
-    for (int j = 0; Size >= j; j++)
+        cout << "Enter " << i + 1 << " Element : ";
+        cin >> values;
+        array[i] = values;
+    };
+    // For MAX Elememt in Array
+    int max = array[0];
+    for (int i = 0; i < n; i++)
     {
-        if (Max < array[j])
+        if (max < array[i])
         {
-            Max = array[j];
+            max = array[i];
         }
     }
-    cout<<"Max is: "<<Max<<endl;
-    redix_sort(array, Max, Size);
+    cout << "Max Element is : " << max << endl;
 
-    cout << "\nArray is : ";
-    for (int i = 0; i < Size; i++)
+    // For No. of Digits in Max Elelment
+    int count = 0;
+    while (max != 0)
     {
-        cout << array[i] << " ";
+        max = max / 10;
+        count++;
+    };
+    cout << "No. of Digits in Max Elelment : " << count << endl;
+
+    // For Redix Sort
+    for (int k = 0; k < count; k++)
+    {
+        Redix(array, k, n);
     }
-    cout << endl;
+
+    // For Print Array
+    cout << "Array  : ";
+    for (int j = 0; j < n; j++)
+    {
+        cout << array[j] << " ";
+    }
 }
