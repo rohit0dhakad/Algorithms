@@ -42,7 +42,7 @@ int main()
 {
     int n = 7;
 
-    int arr[7] = {2, 3, 6, 8, 33, 7, 5};
+    int arr[7] = {2, 3, 6, 8, 4, 7, 5};
     for (int i = 0; i < n; i++)
         cout << " " << arr[i] << " ";
     cout << endl;

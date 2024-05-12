@@ -12,7 +12,7 @@ int portion(int array[], int start, int end)
             swap(array[i], array[j]);
         }
     }
-    swap(array[i+1 ], array[end]);
+    swap(array[i+1], array[end]);
     return (i + 1);
 }
 void quicksort(int array[], int start, int end)
